@@ -60,7 +60,7 @@ Cada área incluye ejercicios prácticos, material teórico en PDF/LaTeX, notebo
 ### 🆓 Sin dependencias propietarias
 - Todo el contenido es **open source**.
 - Los notebooks usan librerías estándar del ecosistema (NumPy, Pandas, scikit-learn, PyTorch, TensorFlow).
-- Los documentos están en formatos abiertos (PDF, Markdown, LaTeX, `.ipynb`).
+- Los documentos están en formatos abiertos (PDF, Markdown, LaTeX, `.ipynb`, `.txt`).
 
 ---
 
@@ -136,8 +136,7 @@ IA_Excersices_repository/
 ├── 10-datasets/
 │   └── README.md
 │
-├── PLN/
-│   └── Regrex/
-│       └── Expresiones regulares en Python.pdf
-│
-└── (nuevas áreas conforme se agreguen documentos)
+└── PLN/
+    └── Regrex/
+        ├── Expresiones regulares en Python.pdf
+        └── Expresiones regulares en Python.text
