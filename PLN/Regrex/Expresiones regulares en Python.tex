@@ -1,0 +1,375 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\geometry{margin=2.5cm}
+\setlength{\parindent}{0pt}
+
+% Título del índice
+\addto\captionsspanish{\renewcommand{\contentsname}{Índice}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\hypersetup{
+pdftitle={Expresiones Regulares en Python: Teoría, Práctica y Ejercicios},
+pdfauthor={MTI. Juan Carlos Santiago Sánchez},
+colorlinks=true,
+linkcolor=black,
+urlcolor=blue
+}
+
+% Estilo para código Python
+\lstset{
+language=Python,
+basicstyle=\ttfamily\small,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{red!70!black},
+showstringspaces=false,
+breaklines=true,
+frame=single,
+numbers=left,
+numberstyle=\tiny\color{gray}
+}
+
+% Comando para generar el espacio de escritura a mano de los alumnos
+\newcommand{\espacioalumno}{%
+  \begin{flushleft}
+  \vspace{5cm}
+  \end{flushleft}
+}
+
+\title{EXPRESIONES REGULARES EN PYTHON\\[0.3em]
+\large Guía didáctica ampliada: teoría profunda, ejemplos y 75 ejercicios progresivos}
+\author{MTI. Juan Carlos Santiago Sánchez\\[0.2em]
+\texttt{juancarlos.santiago.cb161@dgeti.sems.gob.mx}}
+\date{}
+
+
+\begin{document}
+\maketitle
+\newpage
+\begingroup
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\newpage
+
+\title{EXPRESIONES REGULARES EN PYTHON\\[0.3em]
+\begin{abstract}
+Las expresiones regulares (regular expressions o RegEx) constituyen un mecanismo formal para describir, localizar, extraer y validar patrones dentro de cadenas de caracteres. Son ampliamente utilizadas en programación, procesamiento de texto, análisis de datos, limpieza de información y procesamiento de lenguaje natural. Este material presenta una introducción conceptual profunda a las expresiones regulares, sus principales reglas sintácticas, el comportamiento del motor de búsqueda y aplicaciones, con énfasis en su implementación mediante el módulo \texttt{re} de Python. Finalmente, se propone una colección de 75 ejercicios organizados en cinco niveles de complejidad, incluyendo espacios designados para la resolución manual.
+\end{abstract}
+
+\noindent\textbf{Palabras clave:} expresiones regulares, Python, validación, cadenas, patrones, procesamiento de texto, automatas finitos.
+
+\section{Introducción}
+En programación, una cadena de caracteres puede contener información que necesita ser validada, localizada, extraída o transformada. Algunos ejemplos son nombres de usuario, códigos postales, números telefónicos, correos electrónicos, fechas, identificadores y fragmentos de texto.
+
+La revisión manual de cada cadena puede resultar repetitiva y propensa a errores. Las expresiones regulares ofrecen una forma compacta de describir patrones que permiten automatizar estas tareas. Una expresión regular no representa necesariamente una cadena específica: puede describir un conjunto de cadenas que cumplen determinadas condiciones.
+
+Desde una perspectiva teórica, las expresiones regulares están estrechamente relacionadas con los \textbf{Autómatas Finitos}. Cuando Python compila una expresión regular, internamente construye un autómata (generalmente un Autómata Finito No Determinista, NFA) que recorre la cadena de entrada carácter por carácter para determinar si existe una coincidencia. Comprender esto ayuda a entender por qué ciertos patrones complejos pueden ser lentos o causar el fenómeno conocido como \textit{catastrophic backtracking} (retroceso catastrófico).
+
+\section{¿Qué es una expresión regular?}
+Una expresión regular es una secuencia de caracteres y operadores que define un patrón de búsqueda sobre texto. Dicho patrón puede representar una cadena exacta, una clase de caracteres, una estructura repetitiva o una combinación de condiciones.
+
+Por ejemplo, el patrón:
+\begin{center}
+\texttt{\textbackslash d\{5\}}
+\end{center}
+representa una secuencia de exactamente cinco dígitos en el motor de expresiones regulares de Python. Puede utilizarse para reconocer cadenas como \texttt{01234} o \texttt{54321}. En cambio, no reconoce una cadena como \texttt{1234}, porque contiene solamente cuatro dígitos.
+
+\subsection{Expresión regular y validación}
+Validar una cadena significa comprobar si cumple un conjunto de condiciones. Por ejemplo, una validación puede establecer que:
+\begin{itemize}
+\item el texto debe contener únicamente letras;
+\item debe comenzar con una letra;
+\item debe tener una longitud determinada;
+\item debe incluir al menos un número;
+\item debe respetar un formato específico.
+\end{itemize}
+Una expresión regular puede comprobar la estructura sintáctica de una cadena, pero no necesariamente su significado semántico. Por ejemplo, un patrón puede reconocer el formato de una fecha (DD/MM/AAAA) sin comprobar que el día 31 exista realmente en el mes de febrero.
+
+\section{Reglas y elementos principales de RegEx}
+
+\subsection{Caracteres literales}
+Los caracteres literales representan exactamente el carácter escrito en el patrón. Por ejemplo, el patrón \texttt{Python} busca la secuencia literal de letras ``Python''.
+
+\subsection{Clases de caracteres}
+Las clases permiten definir qué caracteres son aceptables en una posición.
+\begin{table}[h]
+\centering
+\caption{Clases de caracteres frecuentes en Python RegEx}
+\begin{tabular}{>{\ttfamily}p{2.5cm}p{9.5cm}}
+\toprule
+\textnormal{\textbf{Símbolo}} & \textnormal{\textbf{Descripción}}\\
+\midrule
+\textbackslash d & Dígito decimal (equivalente a \texttt{[0-9]}).\\
+\textbackslash D & Carácter que no es un dígito decimal.\\
+\textbackslash w & Carácter de palabra: letras, dígitos y guion bajo (\texttt{[a-zA-Z0-9\_]}).\\
+\textbackslash W & Carácter que no pertenece a \texttt{\textbackslash w}.\\
+\textbackslash s & Espacio en blanco (espacio, tabulación, salto de línea).\\
+\textbackslash S & Carácter que no es espacio en blanco.\\
+{[}abc{]} & Cualquier carácter de los indicados: a, b o c.\\
+{[}a-z{]} & Cualquier letra minúscula ASCII entre a y z.\\
+{[}\^{}abc{]} & Cualquier carácter excepto a, b o c (negación).\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cuantificadores}
+Los cuantificadores determinan cuántas veces puede aparecer un elemento.
+\begin{table}[h]
+\centering
+\caption{Cuantificadores principales}
+\begin{tabular}{>{\ttfamily}p{2.5cm}p{9.5cm}}
+\toprule
+\textnormal{\textbf{Símbolo}} & \textnormal{\textbf{Significado}}\\
+\midrule
+* & Cero o más repeticiones.\\
++ & Una o más repeticiones.\\
+? & Cero o una repetición.\\
+\{n\} & Exactamente n repeticiones.\\
+\{n,m\} & Entre n y m repeticiones, inclusive.\\
+\{n,\} & n o más repeticiones.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection*{Codicioso (Greedy) vs. Perezoso (Lazy)}
+Por defecto, los cuantificadores en Python son \textbf{codiciosos} (\textit{greedy}), lo que significa que intentan coincidir con la mayor cantidad de caracteres posible. Si se añade un signo de interrogación después del cuantificador (ej. \texttt{*?}, \texttt{+?}, \texttt{\{n,m\}?}), el comportamiento se vuelve \textbf{perezoso} (\textit{lazy}), deteniéndose en la primera coincidencia válida.
+
+\subsection{Anclas y límites}
+Las anclas permiten establecer posiciones dentro de una cadena sin consumir caracteres.
+\begin{itemize}
+\item \texttt{\^{}}: inicio de la cadena (o de una línea si se usa la bandera \texttt{re.MULTILINE}).
+\item \texttt{\$}: final de la cadena (o de una línea si se usa \texttt{re.MULTILINE}).
+\item \texttt{\textbackslash b}: límite de palabra (transición entre \texttt{\textbackslash w} y \texttt{\textbackslash W}).
+\item \texttt{\textbackslash B}: posición que no corresponde a un límite de palabra.
+\end{itemize}
+
+\subsection{Alternancia, Agrupación y Banderas}
+El símbolo \texttt{|} representa una alternativa (OR lógico). Los paréntesis \texttt{()} permiten agrupar partes de una expresión y \textbf{capturar} el texto que coincide para extraerlo después.
+\begin{itemize}
+\item \textbf{Grupos de captura:} \texttt{(patrón)}. Guardan el resultado para usarlo con \texttt{.group(1)}.
+\item \textbf{Grupos de no captura:} \texttt{(?:patrón)}. Agrupan para aplicar cuantificadores o alternativas, pero no guardan el resultado, optimizando el rendimiento.
+\item \textbf{Banderas (Flags):} Modifican el comportamiento global. Ejemplos: \texttt{re.IGNORECASE} (ignora mayúsculas/minúsculas), \texttt{re.DOTALL} (hace que el punto \texttt{.} coincida también con saltos de línea).
+\end{itemize}
+
+\subsection{Caracteres especiales y escape}
+Algunos caracteres tienen significado especial (metacaracteres): \texttt{. * + ? \^{} \$ \textbackslash{} ( ) [ ] \{ \} |}. Para buscarlos como carácter literal, se utiliza la barra invertida como escape: \texttt{\textbackslash .}. En Python se recomienda usar cadenas \textit{raw} (ej. \texttt{r"\textbackslash d+"}).
+
+\subsection{Lookahead y Lookbehind (Aserciones)}
+Permiten comprobar condiciones alrededor de una posición sin incluir esos caracteres en la coincidencia final.
+\begin{itemize}
+\item \textbf{Lookahead positivo:} \texttt{(?=...)}. Comprueba que una condición aparezca a continuación.
+\item \textbf{Lookahead negativo:} \texttt{(?!...)}. Comprueba que una condición \textit{no} aparezca a continuación.
+\item \textbf{Lookbehind positivo:} \texttt{(?\textless=...)}. Comprueba que una condición aparezca antes.
+\item \textbf{Lookbehind negativo:} \texttt{(?\textless!...)}. Comprueba que una condición \textit{no} aparezca antes.
+\end{itemize}
+
+\subsection{Referencias Internas (Backreferences)}
+Permiten reutilizar exactamente lo que un grupo de captura acaba de encontrar. Se referencian con \texttt{\textbackslash 1}, \texttt{\textbackslash 2}, etc. Son útiles para encontrar palabras duplicadas o validar que una cadena inicie y termine con el mismo carácter.
+
+\section{Python y el módulo \texttt{re}}
+Python incorpora el módulo \texttt{re}. Entre sus funciones principales se encuentran:
+\begin{itemize}
+\item \texttt{re.match()}: intenta encontrar una coincidencia al inicio de la cadena.
+\item \texttt{re.search()}: busca una coincidencia en cualquier posición.
+\item \texttt{re.fullmatch()}: comprueba si toda la cadena coincide con el patrón.
+\item \texttt{re.findall()}: devuelve una lista con las coincidencias encontradas.
+\item \texttt{re.finditer()}: permite recorrer las coincidencias mediante objetos de coincidencia.
+\item \texttt{re.sub()}: reemplaza las coincidencias.
+\item \texttt{re.split()}: divide una cadena según un patrón.
+\end{itemize}
+
+\section{Ejercicios de práctica}
+ \textbf{Instrucciones:} Resuelve cada ejercicio mediante una expresión regular en Python. No se permite sustituir la expresión regular por una serie de condiciones manuales para revisar carácter por carácter. Escribe tu código en el espacio provisto.
+
+\subsection{Nivel 1. Básico: caracteres y cadenas}
+\begin{enumerate}[label=\textbf{Ejercicio \arabic*.}]
+\item \textbf{Validación de letras.} Acepta cadenas compuestas únicamente por letras del alfabeto inglés, sin espacios ni números.
+\espacioalumno
+\item \textbf{Validación de números enteros positivos.} Acepta cadenas que contengan únicamente dígitos del 0 al 9.
+\espacioalumno
+\item \textbf{Cadena alfanumérica.} Valida cadenas que contengan únicamente letras y números.
+\espacioalumno
+\item \textbf{Longitud exacta.} Valida una cadena que tenga exactamente ocho caracteres (los espacios cuentan).
+\espacioalumno
+\item \textbf{Contraseña básica.} Valida contraseñas de entre seis y doce caracteres, solo letras y números.
+\espacioalumno
+\item \textbf{Solo vocales minúsculas.} Valida cadenas que contengan únicamente vocales minúsculas (a, e, i, o, u).
+  \vspace{7cm}
+\item \textbf{Inicio y fin específicos.} Valida cadenas que inicien con una letra mayúscula y terminen con un punto.
+\espacioalumno
+\item \textbf{Palabras de 5 letras.} Valida cadenas que sean exactamente una palabra de 5 letras minúsculas.
+\espacioalumno
+\item \textbf{Alternancia simple.} Valida cadenas que contengan exactamente la palabra ``hola'' o ``adiós''.
+  \vspace{8cm}
+\item \textbf{Números con restricción.} Valida números de exactamente 3 dígitos que inicien con el número 9.
+\espacioalumno
+\item \textbf{Exclusión de carácter.} Valida cadenas que no contengan la letra ``a'' (ni mayúscula ni minúscula).
+\espacioalumno
+\item \textbf{Identificador de variable.} Valida nombres de variable que inicien con letra o guion bajo, seguidos de alfanuméricos.
+  \vspace{8cm}
+\item \textbf{Código RGB simple.} Valida códigos de color hexadecimales de 3 caracteres (ej. \texttt{F0A}, \texttt{1b2}).
+\espacioalumno
+\item \textbf{Terminación de palabras.} Valida palabras que terminen exactamente en ``ción'' o ``sión''.
+\espacioalumno
+\item \textbf{Un solo carácter.} Valida cadenas que contengan estrictamente un solo carácter (ni vacío, ni más de uno).
+\espacioalumno
+\end{enumerate}
+
+\subsection{Nivel 2. Intermedio: formatos y patrones}
+\begin{enumerate}[label=\textbf{Ejercicio \arabic*.}, start=16]
+\item \textbf{Nombre de usuario.} De 5 a 15 caracteres, inicia con letra, permite letras, números y guion bajo.
+  \vspace{4.5cm}
+\item \textbf{Código postal mexicano.} Exactamente cinco dígitos.
+  \vspace{4.5cm}
+\item \textbf{Número telefónico.} Exactamente diez dígitos, sin espacios ni separadores.
+  \vspace{4.5cm}
+\item \textbf{Fecha básica.} Formato DD/MM/AAAA (Día 01-31, Mes 01-12, Año 4 dígitos).
+  \vspace{4.5cm}
+\item \textbf{Correo electrónico básico.} Estructura general: usuario, @, dominio, extensión.
+  \vspace{4.5cm}
+\item \textbf{Hora en formato 24h.} Valida horas en formato HH:MM (00:00 a 23:59).
+  \vspace{4.5cm}
+\item \textbf{Placa de automóvil.} Formato de 3 letras mayúsculas seguidas de 3 dígitos (ej. \texttt{ABC123}).
+\espacioalumno
+\item \textbf{Dirección MAC.} Valida formato XX:XX:XX:XX:XX:XX (hexadecimal).
+\espacioalumno
+\item \textbf{Nombre de dominio.} Valida dominios simples (ej. \texttt{ejemplo.com}, \texttt{mi-sitio.org}).
+\espacioalumno
+\item \textbf{Número de seguridad social.} Formato XXX-XX-XXXX (solo dígitos y guiones).
+  \vspace{4.5cm}
+\item \textbf{Código de producto.} Formato: 2 letras, 4 números, 1 letra (ej. \texttt{AB1234C}).
+  \vspace{4.5cm}
+\item \textbf{Coordenadas simples.} Valida formato básico de latitud y longitud (ej. \texttt{40.7128, -74.0060}).
+  \vspace{4.5cm}
+\item \textbf{Formato de moneda.} Símbolo \$ o €, seguido de números y exactamente 2 decimales (ej. \texttt{\$1,234.56}).
+  \vspace{4.5cm}
+\item \textbf{Código IATA.} Valida códigos de aeropuerto de exactamente 3 letras mayúsculas.
+  \vspace{4.5cm}
+\item \textbf{ISBN-10 básico.} Valida el formato con guiones (ej. \texttt{X-XXX-XXXXX-X}).
+  \vspace{4.5cm}
+\end{enumerate}
+
+\subsection{Nivel 3. Intermedio-avanzado: validaciones complejas}
+\begin{enumerate}[label=\textbf{Ejercicio \arabic*.}, start=31]
+\item \textbf{Contraseña con mayúscula y minúscula.} Solo letras, al menos una mayúscula y una minúscula.
+  \vspace{4.5cm}
+\item \textbf{Contraseña con letras y números.} Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número. Sin símbolos.
+  \vspace{4.5cm}
+\item \textbf{Contraseña robusta.} Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número, 1 símbolo especial.
+  \vspace{4.5cm}
+\item \textbf{Número decimal.} Enteros o decimales positivos/negativos. Signo opcional, punto decimal opcional.
+\espacioalumno
+\item \textbf{Número hexadecimal.} Prefijo \texttt{0x} o \texttt{0X}, seguido de caracteres hexadecimales.
+\espacioalumno
+\item \textbf{Contraseña con 2 números.} Mínimo 8 caracteres, al menos 2 números (no necesariamente consecutivos).
+\espacioalumno
+\item \textbf{Contraseña sin espacios.} Mínimo 8 caracteres, no permite ningún tipo de espacio en blanco.
+  \vspace{4.5cm}
+\item \textbf{Tarjeta de crédito.} 16 dígitos agrupados de 4 en 4, separados por guiones o espacios.
+  \vspace{4.5cm}
+\item \textbf{Notación científica.} Valida números en notación científica (ej. \texttt{1.23e-4}, \texttt{-5E+10}).
+  \vspace{4.5cm}
+\item \textbf{RFC mexicano (básico).} 4 letras, 6 dígitos (AAMMDD), 3 caracteres alfanuméricos (homoclave).
+\espacioalumno
+\item \textbf{Expresión booleana simple.} Valida variables de una letra unidas por ``and'' u ``or'' (ej. \texttt{A and B}).
+  \vspace{4.5cm}
+\item \textbf{Ruta de archivo Windows.} Valida rutas absolutas (ej. \texttt{C:\textbackslash folder\textbackslash file.txt}).
+  \vspace{4.5cm}
+\item \textbf{Ruta de archivo Unix/Linux.} Valida rutas absolutas (ej. \texttt{/usr/local/bin/script}).
+  \vspace{4.5cm}
+\item \textbf{Teléfono con código de país.} Formato internacional (ej. \texttt{+52 55 1234 5678}).
+  \vspace{4.5cm}
+\item \textbf{Contraseña 3 de 4 categorías.} Mínimo 8 chars. Debe cumplir al menos 3 de: mayúscula, minúscula,   \vspace{4.5cm}
+\end{enumerate}
+
+\subsection{Nivel 4. Avanzado: extracción y transformación}
+\begin{enumerate}[label=\textbf{Ejercicio \arabic*.}, start=46]
+\item \textbf{Extracción de palabras.} Extrae todas las palabras de una oración en español (incluye acentos y ñ).
+  \vspace{4.5cm}
+\item \textbf{Extracción de números.} Extrae todas las secuencias de dígitos de un texto mixto y guárdalas en lista.
+  \vspace{4.5cm}
+\item \textbf{Normalización de espacios.} Reemplaza secuencias de espacios, tabs o saltos de línea por un único espacio.
+  \vspace{4.5cm}
+\item \textbf{Dirección IPv4.} Valida 4 octetos (0-255) separados por puntos. Documenta si aceptas ceros a la izquierda.
+  \vspace{4.5cm}
+\item \textbf{Extracción de etiquetas HTML.} Extrae nombres de etiquetas de apertura. Explica las limitaciones con HTML anidado.
+  \vspace{4.5cm}
+\item \textbf{Extraer correos de un texto.} Dado un párrafo largo, extrae todas las direcciones de correo electrónico.
+  \vspace{4.5cm}
+\item \textbf{Extraer Hashtags.} Extrae todas las palabras precedidas por el símbolo \texttt{\#} de un texto.
+\espacioalumno
+\item \textbf{Extraer Menciones.} Extrae todas las menciones de usuario (inician con \texttt{@}) de un texto.
+  \vspace{4.5cm}
+\item \textbf{Reemplazo de vocales.} Reemplaza todas las vocales (con y sin acento) de un texto por un asterisco \texttt{*}.
+  \vspace{4.5cm}
+\item \textbf{Extraer enlaces HTTP.} Extrae todas las URLs que inicien con \texttt{http://} o \texttt{https://}.
+  \vspace{4.5cm}
+\item \textbf{Dividir por comas (CSV).} Divide una cadena por comas, pero ignora las comas que estén dentro de comillas dobles.
+\espacioalumno
+\item \textbf{Extraer fechas ISO.} Extrae fechas en formato \texttt{YYYY-MM-DD} de un texto desordenado.
+  \vspace{4.3cm}
+\item \textbf{Limpieza de texto no-ASCII.} Elimina de una cadena cualquier carácter que no pertenezca al rango ASCII estándar.
+  \vspace{4.3cm}
+\item \textbf{Extraer contenido de comillas.} Extrae únicamente el texto que se encuentra dentro de comillas dobles.
+  \vspace{4.2cm}
+\end{enumerate}
+
+\subsection{Nivel 5. Experto: grupos, aserciones y backreferences}
+\begin{enumerate}[label=\textbf{Ejercicio \arabic*.}, start=61]
+\item \textbf{Matrícula.} 3 letras mayúsculas, guion, 4 dígitos. Usa grupos de captura para separar letras y números.
+\espacioalumno
+\item \textbf{Cadena sin espacios.} Valida cadenas sin espacios en blanco. Rechaza cadenas vacías.
+  \vspace{4.5cm}
+\item \textbf{Contraseña sin ``admin''.} Mínimo 8 caracteres, no contiene la palabra ``admin'' (insensible a mayúsculas). Usa lookahead negativo.
+  \vspace{4.5cm}
+\item \textbf{Extracción de precios.} Extrae números precedidos por \texttt{\$}. Usa lookbehind positivo.
+\espacioalumno
+\item \textbf{Grupos con nombre.} Valida \texttt{Nombre:Juan;Edad:25}. Usa grupos con nombre \texttt{(?P<nombre>...)} para extraer ambos.
+\espacioalumno
+\item \textbf{Palabras entre comillas simples.} Extrae palabras que estén estrictamente entre comillas simples, sin incluir las comillas (lookarounds).
+  \vspace{4.5cm}
+\item \textbf{Contraseña sin el nombre de usuario.} Valida contraseña que no contenga el nombre de usuario (usa lookahead negativo y variables de Python).
+  \vspace{4.5cm}
+\item \textbf{Extraer dominio de correo.} Extrae solo el dominio (después del @) de un correo usando lookbehind y lookahead.
+  \vspace{4.5cm}
+\item \textbf{Palabras duplicadas.} Encuentra palabras duplicadas consecutivas (ej. ``el el'') usando backreferences (\texttt{\textbackslash 1}).
+\espacioalumno
+\item \textbf{Números sin signo menos.} Extrae números que NO estén precedidos por un signo menos (lookbehind negativo).
+  \vspace{4.5cm}
+\item \textbf{Mismo carácter al inicio y fin.} Valida cadenas que inician y terminan con el mismo carácter (usa backreference).
+  \vspace{4.5cm}
+\item \textbf{Reformatear fechas.} Dada una fecha \texttt{DD/MM/AAAA}, usa \texttt{re.sub()} y grupos para convertirla a \texttt{AAAA-MM-DD}.
+  \vspace{4.5cm}
+\item \textbf{Extraer valores de JSON simple.} Extrae los valores de un JSON simple (ej. \texttt{"clave": "valor"}), capturando solo el valor.
+\espacioalumno
+\item \textbf{Contraseña con símbolo restringido.} Valida contraseña con al menos un símbolo especial, pero que NO sea ni \texttt{!} ni \texttt{@}.
+\espacioalumno
+\end{enumerate}
+
+\section{Conclusiones}
+Las expresiones regulares constituyen una herramienta flexible y poderosa para describir patrones en cadenas de caracteres. Su uso permite automatizar validaciones, búsquedas, extracciones y transformaciones de texto. El aprendizaje progresivo de clases de caracteres, cuantificadores, anclas, grupos, aserciones y referencias internas facilita el diseño de patrones cada vez más complejos.
+
+No obstante, la legibilidad y el mantenimiento deben considerarse al construir expresiones regulares extensas. Cuando una validación involucra reglas semánticas profundas, estructuras anidadas complejas (como HTML o XML) o validaciones matemáticas (como el algoritmo de Luhn para tarjetas), es conveniente combinar RegEx con funciones específicas, validadores de bibliotecas o análisis adicional en Python.
+
+\section*{Referencias}
+\addcontentsline{toc}{section}{Referencias}
+Python Software Foundation. (s. f.). \textit{Regular expression operations}. Python 3 documentation. Recuperado el 4 de noviembre de 2026, de \url{https://docs.python.org/3/library/re.html}
+
+Friedl, J. E. F. (2006). \textit{Mastering regular expressions} (3rd ed.). O'Reilly Media.
+
+\end{document}
