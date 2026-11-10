@@ -79,64 +79,63 @@ IA_Excersices_repository/
 │   ├── index.md                       ← índice en Markdown
 │   └── CONTRIBUTING.md                ← guía de contribución
 │
-├── 01-fundamentos-matematicos/
-│   ├── algebra-lineal/
-│   ├── calculo-multivariable/
-│   ├── probabilidad-estadistica/
-│   └── optimizacion/
+├── Fundamentos-Matematicos/
+│   ├── Algebra-lineal/
+│   ├── Calculo-multivariable/
+│   ├── Probabilidad-estadistica/
+│   └── Optimizacion/
 │
-├── 02-machine-learning/
+├── Machine-learning/
 │   ├── supervised-learning/
 │   ├── unsupervised-learning/
 │   ├── ensembles/
 │   └── feature-engineering/
 │
-├── 03-deep-learning/
+├── Deep-Learning/
 │   ├── redes-neuronales-basicas/
 │   ├── cnn/
 │   ├── rnn-lstm-gru/
 │   ├── transformers/
 │   └── autoencoders-gans/
 │
-├── 04-nlp/                            ← PLN
-│   ├── preprocesamiento/
+├── PLN/
+|   ├── preprocesamiento/
 │   ├── embeddings/
 │   ├── modelos-clasicos/
 │   └── llms/
+|   └── Regrex/
+|       ├── Expresiones regulares en Python.pdf
+|       └── Expresiones regulares en Python.text
 │
-├── 05-computer-vision/
+├── Computer-vision/
 │   ├── procesamiento-imagenes/
 │   ├── deteccion-objetos/
 │   ├── segmentacion/
 │   └── vision-transformers/
 │
-├── 06-reinforcement-learning/
+├── Reinforcement-learning/
 │   ├── bandits-multiarm/
 │   ├── q-learning/
 │   ├── policy-gradients/
 │   └── deep-rl/
 │
-├── 07-generative-ai-llms/
+├── Generative-ai-llms/
 │   ├── prompt-engineering/
 │   ├── fine-tuning/
 │   ├── rag/
 │   └── agentes/
 │
-├── 08-mlops/
+├── Mlops/
 │   ├── dockerizacion/
 │   ├── pipelines/
 │   ├── despliegue/
 │   └── monitoreo/
 │
-├── 09-etica-ia/
+├── Etica-IA/
 │   ├── sesgo-fairness/
 │   ├── explicabilidad/
 │   └── regulacion/
 │
-├── 10-datasets/
-│   └── README.md
-│
-└── PLN/
-    └── Regrex/
-        ├── Expresiones regulares en Python.pdf
-        └── Expresiones regulares en Python.text
+└── Datasets/
+    └── README.md
+
