@@ -138,4 +138,246 @@ IA_Excersices_repository/
 │
 └── Datasets/
     └── README.md
+​```
+---
 
+## 3. Áreas de IA cubiertas
+
+| # | Área | Descripción | Estado |
+|---|------|-------------|--------|
+| 01 | 🧮 **Fundamentos Matemáticos** | Álgebra lineal, cálculo, probabilidad y optimización aplicados a IA. | 🚧 En progreso |
+| 02 | 🤖 **Machine Learning** | Supervisado, no supervisado, ensembles y feature engineering. | 🚧 En progreso |
+| 03 | 🧠 **Deep Learning** | Redes neuronales, CNN, RNN, Transformers, GANs. | 🚧 En progreso |
+| 04 | 💬 **PLN / NLP** | Procesamiento de lenguaje natural, embeddings, LLMs. | 🟢 Activo |
+| 05 | 👁 **Computer Vision** | Procesamiento de imágenes, detección y segmentación. | 🚧 En progreso |
+| 06 | 🎮 **Reinforcement Learning** | Bandits, Q-Learning, Policy Gradients, Deep RL. | 🚧 En progreso |
+| 07 | ✨ **Generative AI & LLMs** | Prompt engineering, fine-tuning, RAG, agentes. | 🚧 En progreso |
+| 08 | ⚙️ **MLOps** | Docker, pipelines, despliegue y monitoreo. | 🚧 En progreso |
+| 09 | ⚖️ **Ética en IA** | Sesgo, fairness, explicabilidad, regulación. | 🚧 En progreso |
+| 10 | 📊 **Datasets** | Conjuntos de datos utilizados en los ejercicios. | 🚧 En progreso |
+
+> 🟢 Activo con documentos · 🚧 En progreso (sin documentos aún) · ⏳ Planeado
+
+---
+
+## 4. Índice de documentos
+
+### 💬 PLN — Procesamiento de Lenguaje Natural
+
+| Documento | Tipo | Temas | Enlace |
+|-----------|------|-------|--------|
+| **Expresiones regulares en Python** — Guía PDF | `PDF` | `Python` · `Regex` · `PLN` | [📄 Abrir](https://github.com/jcteacher-lab/IA_Excersices_repository/blob/main/PLN/Regrex/Expresiones%20regulares%20en%20Python.pdf) |
+| **Expresiones regulares en Python** — Texto plano | `TEXT` | `Python` · `Regex` · `PLN` | [📝 Abrir](https://github.com/jcteacher-lab/IA_Excersices_repository/blob/main/PLN/Regrex/Expresiones%20regulares%20en%20Python.text) |
+
+---
+
+## 5. Instalación y uso
+
+### Opción 1 — Clonar el repositorio
+
+```bash
+git clone https://github.com/jcteacher-lab/IA_Excersices_repository.git
+cd IA_Excersices_repository
+```
+
+### Opción 2 — Crear un entorno virtual (recomendado)
+
+```bash
+python -m venv .venv
+source .venv/bin/activate       # Linux / macOS
+.venv\Scripts\activate          # Windows
+```
+
+### Opción 3 — Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+### Opción 4 — Abrir los notebooks
+
+```bash
+jupyter lab
+```
+
+### Opción 5 — Publicar el índice en GitHub Pages
+
+1. Sube `index.html` a la raíz del repositorio.
+2. Ve a **Settings → Pages**.
+3. Source: `Deploy from a branch` → Branch `main` → Folder `/ (root)`.
+4. URL resultante:
+
+```
+https://jcteacher-lab.github.io/IA_Excersices_repository/
+```
+
+### Consulta directa de documentos
+
+Los PDFs, notebooks y apuntes se pueden abrir directamente desde GitHub sin clonar el repo. Solo haz clic en el enlace del [índice de documentos](#4-índice-de-documentos).
+
+---
+
+## 6. Convenciones del repositorio
+
+### Estructura de cada área
+
+Cada carpeta de área contiene:
+
+- `README.md` → Descripción del área y temario.
+- `/ejercicios/` → Ejercicios resueltos (`.ipynb`, `.py` o `.pdf`).
+- `/documentos/` → Apuntes, resúmenes y papers (`.pdf`, `.md`, `.tex`).
+- `/datasets/` → Datos utilizados en los ejercicios.
+- `requirements.txt` → Dependencias específicas del área (si aplica).
+
+### Nomenclatura de archivos
+
+```
+<área>_<tema>_<nivel>_<autor>.<ext>
+
+Ejemplos:
+pln_regex_basico_jdoe.pdf
+ml_regresion-lineal_basico_jdoe.ipynb
+dl_cnn-cifar10_intermedio_jdoe.ipynb
+```
+
+### Niveles de dificultad
+
+| Nivel | Descripción |
+|-------|-------------|
+| `basico` | Introducción al tema, sin prerrequisitos avanzados. |
+| `intermedio` | Requiere conocimientos previos del área. |
+| `avanzado` | Temas de especialización o investigación. |
+
+---
+
+## 7. Stack tecnológico
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas)
+![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow)
+![Hugging Face](https://img.shields.io/badge/HuggingFace-FFD21E?style=flat-square&logo=huggingface)
+![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=flat-square&logo=latex)
+![Markdown](https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=markdown)
+
+</div>
+
+---
+
+## 8. Cómo contribuir
+
+Este proyecto es software libre bajo GPL v3 y todas las contribuciones son bienvenidas.
+
+1. Haz **fork** del repositorio.
+2. Crea una rama: `git checkout -b feature/nueva-area`.
+3. Realiza tus cambios siguiendo la estructura y nomenclatura descritas.
+4. Haz commit: `git commit -m "feat: añade ejercicios de X área"`.
+5. Haz push: `git push origin feature/nueva-area`.
+6. Abre un **Pull Request**.
+
+### Buenas prácticas
+
+- Mantén el estilo y la estructura de carpetas existente.
+- Si añades un documento, actualiza también `index.html` y este `README.md`.
+- Si añades un notebook, asegúrate de que sea reproducible (incluye `requirements`).
+- Documenta las fórmulas y conceptos clave en el README del área correspondiente.
+- Al ser GPL v3, tus contribuciones se integrarán bajo la misma licencia.
+
+### Ideas especialmente buscadas
+
+- Ejercicios de PLN con `spaCy`, `NLTK` y `Hugging Face Transformers`.
+- Notebooks de fine-tuning de LLMs con `peft` y `trl`.
+- Guías de MLOps con Docker, MLflow y GitHub Actions.
+- Material sobre ética en IA y fairness (AI Fairness 360, SHAP).
+- Traducción de guías al inglés, francés o portugués.
+
+Consulta [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md) para más detalles.
+
+---
+
+## 9. Roadmap
+
+- [x] Repositorio base con estructura por áreas de IA.
+- [x] Primer documento: *Expresiones regulares en Python* (PLN) — PDF y texto plano.
+- [x] Índice navegable con buscador (`index.html`).
+- [x] Alternativa de índice en Markdown (`docs/index.md`).
+- [ ] Añadir notebooks de Machine Learning (regresión, clasificación, clustering).
+- [ ] Añadir ejercicios de Deep Learning con PyTorch.
+- [ ] Guía de PLN con spaCy y Transformers.
+- [ ] Guía de Computer Vision con OpenCV y torchvision.
+- [ ] Notebook de fine-tuning de un LLM pequeño.
+- [ ] Guía de MLOps con Docker y despliegue.
+- [ ] Documento de ética en IA y fairness.
+- [ ] Workflow de GitHub Actions que regenere `docs/index.md` automáticamente.
+- [ ] Versión en inglés de la documentación.
+
+---
+
+## 10. Agradecimientos
+
+A todos los docentes, autores y comunidades open source que comparten conocimiento y hacen posible este repositorio. Inspirado en la tradición de recursos abiertos para la enseñanza (PhET, Khan Academy, Hugging Face Course, fast.ai) y en la convicción de que el material educativo de calidad debe ser libre y accesible.
+
+Construido con la idea de que cualquier docente o estudiante pueda extenderlo, modificarlo y adaptarlo a sus necesidades sin depender de plataformas propietarias.
+
+---
+
+## 11. Autor
+
+**MTI. Juan Carlos Santiago Sánchez**
+
+- GitHub: [@jcteacher-lab](https://github.com/jcteacher-lab)
+- Correo: juancarlos.santiago.cb161@dgeti.sems.gob.mx
+
+---
+
+## 12. Licencia
+
+**IA Exercises & Academic Papers**
+
+Copyright (C) 2026
+
+Este programa es software libre: puedes redistribuirlo y/o modificarlo bajo los términos de la GNU General Public License tal como la publica la Free Software Foundation, ya sea la versión 3 de la Licencia, o (a tu elección) cualquier versión posterior.
+
+Este programa se distribuye con la esperanza de que sea útil, pero **SIN NINGUNA GARANTÍA**; ni siquiera la garantía implícita de COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR. Consulta la GNU General Public License para más detalles.
+
+Deberías haber recibido una copia de la GNU General Public License junto con este programa. Si no es así, consulta [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
+
+### Resumen de la licencia
+
+|  |  |
+|--|--|
+| Licencia | GNU General Public License v3.0 |
+| SPDX | GPL-3.0-or-later |
+| Copyright | (C) 2026 |
+| Texto legal completo | [LICENSE](./LICENSE) · [gnu.org/licenses/gpl-3.0](https://www.gnu.org/licenses/gpl-3.0.txt) |
+
+> **Nota sobre documentos de terceros**: los papers y materiales académicos incluidos mantienen sus licencias originales. Solo se incluyen versiones **open access** o enlaces oficiales a los repositorios de los autores.
+
+> **Importante**: para que el proyecto esté correctamente licenciado bajo GPL v3, además de este `README.md` debes incluir en la raíz del repositorio un archivo llamado `LICENSE` (sin extensión) con el texto legal completo. Puedes obtenerlo con:
+
+```bash
+curl -o LICENSE https://www.gnu.org/licenses/gpl-3.0.txt
+```
+
+---
+
+## 13. Proyectos relacionados
+
+Otros simuladores educativos y herramientas didácticas del mismo autor, todos con licencia libre y orientados a la enseñanza de la física y las matemáticas:
+
+- [**Simulador del Sistema Solar**](https://jcteacher-lab.github.io/sistemasolar/) — Simulador interactivo del Sistema Solar con órbitas keplerianas reales (elementos J2000), panel de datos físicos y guía de ejercicios en LaTeX.
+- [**Simulador de Tiro Parabólico**](https://jcteacher-lab.github.io/tiroparabolico) — Simulador educativo de movimiento de proyectiles con Canvas 2D.
+- [**Simulador de Movimiento Circular**](https://github.com/jcteacher-lab/movimientocircular) — Simulador interactivo de movimiento circular uniforme (MCU) con vectores de velocidad, fuerza y aceleración centrípeta en tiempo real, en tres versiones (escritorio, móvil y universal).
+- [**Analizador de parábolas**](https://github.com/jcteacher-lab/analizadordeparabolas) — Herramienta didáctica para explorar la parábola: cambia a, h y k con deslizadores y observa cómo se traslada el vértice.
+- [**Graficador dinámico de parábolas**](https://github.com/jcteacher-lab/Graficador_dinamico_parabolas) — Simulador educativo que construye la gráfica y la ecuación de una parábola a partir de sus elementos geométricos: Vértice, Foco y Directriz.
+
+---
+
+> *"La inteligencia artificial no reemplaza al que aprende, pero sí amplifica al que entiende."*
+
+Hecho con ❤️ y con libertad — GPL v3 garantiza que el conocimiento seguirá siendo libre.
